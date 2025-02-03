@@ -1,0 +1,40 @@
+
+  .container-heart-spin {
+    position : relative;
+    transform-style : preserve-3d;
+    transform-origin : center;
+    animation : 5s spin linear infinite;
+  }
+  @keyframes spin {
+    from {transform : rotatey(0deg);}
+    to {transform : rotatey(360deg);}
+  }
+  .adjustment {
+    text-align : center;
+    position : absolute;
+  }
+  .l1 {
+    transform : translatez(50px);
+    font-size : 1em;
+    top : 60px; left : 55px;
+  }
+  .l2 {
+    transform : translatez(25px);
+    font-size : 2em;
+    top : 35px; left : 33px;
+  }
+  .l3 {
+    position : static;
+    font-size : 3em;
+    transform : translatez(0px);
+  }
+  .l4 {
+    transform : translatez(-25px);
+    font-size : 4em;
+    top : 25px; left : 22px;
+  }
+  .l5 {
+    transform : translatez(-50px);
+    font-size : 5em;
+    top : 60px; left : 55px;
+  }

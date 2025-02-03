@@ -1,0 +1,129 @@
+/* CSS version of https://dribbble.com/shots/2163674-Floppy-Disk-Friends */
+
+.container-disks {
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+}
+.floppy {
+    border: 3px solid #60615f;
+    border-radius: 3px 40px 3px 3px;
+    height: 200px;
+    position: relative;
+    min-width: 210px;
+}
+.floppy--green {
+    background-color: #c7e07f;
+}
+.floppy--green > .floppy-disk {
+    background-color: #9ccf81;
+}
+.floppy--green > .floppy-disk:after {
+    background-color: #c7e07f;
+}
+.floppy--pink {
+    background-color: #e8768a;
+}
+.floppy--pink > .floppy-disk {
+    background-color: #b94c6b;
+}
+.floppy--pink > .floppy-disk:after {
+    background-color: #e8768a;
+}
+.floppy-disk {
+    border: 3px solid #60615f;
+    border-top: none;
+    border-radius: 3px;
+    height: 60px;
+    max-width: 70%;
+    margin: 0 auto;
+    position: relative;
+}
+.floppy-disk:before {
+    background-color: #e4e5e6;
+    border: 2px solid #60615f;
+    border-radius: 3px;
+    bottom: -3%;
+    content: '';
+    display: block;
+    height: 104%;
+    left: 20px;
+    position: absolute;
+    width: 80%;
+}
+.floppy-disk:after {
+    background: red;
+    border: 2px solid #60615f;
+    border-radius: 5px;
+    bottom: 5px;
+    content: '';
+    display: block;
+    height: 80%;
+    right: 15px;
+    position: absolute;
+    width: 20%;
+}
+.floppy-label {
+    background-color: #f0e3ca;
+    border: 2px solid #60615f;
+    border-radius: 10px;
+    bottom: 3px;
+    left: 0;
+    height: 100px;
+    margin: 0 auto;
+    max-width: 70%;
+    position: absolute;
+    right: 0;
+}
+.floppy-label:before, .floppy-label:after {
+    background-color: #60615f;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 5px;
+    position: absolute;
+    top: 50%;
+    width: 5px;
+}
+.floppy-label:before {
+    left: 30%;
+}
+.floppy-label:after {
+    right: 30%;
+}
+.floppy-reaction {
+    border: 2px solid #60615f;
+    border-radius: 10px 10px 0 0;
+    bottom: 30%;
+    height: 5px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    width: 10px;
+}
+.happy-valentines {
+    display: none;
+    margin: 40px 0;
+    text-align: center;
+}
+
+@keyframes showElement {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+    
+}
+
+@media (max-width: 800px) {
+    .floppy-reaction {
+        border-radius: 0 0 10px 10px;
+   }
+    .happy-valentines {
+        display: block;
+        width: 85%;
+        animation: showElement 2s linear
+   }
+   .valentine-info{
+    display: none;
+   }
+}
