@@ -1,4 +1,3 @@
-import React from "react";
 import "./noButton.css";
 
 type TProps = {

@@ -1,4 +1,3 @@
-import React from "react";
 import Disks from "./Disks";
 
 type TProps = {

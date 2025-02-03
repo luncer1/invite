@@ -9,7 +9,9 @@ type TProps = {
 };
 
 function Buttons({ handleAccept, increaseDeclines }: TProps) {
-  const [yesButtons, setYesButtons] = useState([]);
+  const [yesButtons, setYesButtons] = useState(
+    [] as unknown as [{ x: number; y: number }]
+  );
   const set = useRef(false);
   const set2 = useRef(false);
   const handleNoButton = () => {
@@ -18,10 +20,13 @@ function Buttons({ handleAccept, increaseDeclines }: TProps) {
       .getElementById("mainContainer")
       ?.getBoundingClientRect();
     const newYesButtons = [...yesButtons];
-    newYesButtons.push({
-      x: Math.random() * mainContainer.width - 50,
-      y: Math.random() * mainContainer.height - 50,
-    });
+    if (mainContainer) {
+      newYesButtons.push({
+        x: Math.random() * mainContainer.width - 50,
+        y: Math.random() * mainContainer.height - 50,
+      });
+    }
+    // @ts-expect-error: No error
     setYesButtons(newYesButtons);
   };
 
@@ -96,7 +101,7 @@ function Buttons({ handleAccept, increaseDeclines }: TProps) {
             sx={{
               position: "absolute",
               top: `${yesButton.y}px`,
-              left: `${yesButton.x}px`,
+              left: `${yesButton?.x}px`,
               zIndex: 10,
             }}
           >
