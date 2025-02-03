@@ -1,13 +1,16 @@
 {
   "name": "valentine-app",
   "private": true,
+  "homepage": "https://luncer1.github.io/invite/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -16,6 +19,7 @@
     "@fontsource/roboto": "^5.1.1",
     "@mui/icons-material": "^6.4.2",
     "@mui/material": "^6.4.2",
+    "gh-pages": "^6.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
