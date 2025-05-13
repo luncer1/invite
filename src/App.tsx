@@ -19,7 +19,8 @@ function App() {
     <Box
       id="mainContainer"
       sx={{
-        height: "100vh",
+        paddingTop: "10vh",
+        paddingBottom: "10vh",
         bgcolor: "red",
         width: "100vw",
         display: "flex",

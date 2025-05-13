@@ -35,8 +35,16 @@ function Buttons({ handleAccept, increaseDeclines }: TProps) {
       const element = document.getElementById("noButton");
       if (element && !set.current) {
         set.current = true;
-        // element.classList.add("noBtnAnimate");
         setInterval(() => {
+          let transitionSpeed = 2;
+          if (yesButtons.length > 30) {
+            transitionSpeed = 0.1;
+          } else if (yesButtons.length > 20) {
+            transitionSpeed = 0.5;
+          } else if (yesButtons.length > 10) {
+            transitionSpeed = 1;
+          }
+
           let sign = "-";
           let val = 0;
           let axis = "Y";
@@ -47,25 +55,28 @@ function Buttons({ handleAccept, increaseDeclines }: TProps) {
             axis = "X";
           }
           val = Math.floor(Math.random() * 250) + 50;
-          element.style.transition = "transform 1s";
+          element.style.transition = `transform ${transitionSpeed}s`;
           element.style.transform = `translate${axis}(${sign}${val}%)`;
         }, 500);
       }
     } else {
       document.getElementById("noButton")?.classList.remove("noBtnAnimate");
     }
-    if (yesButtons.length > 7) {
+    if (yesButtons.length > 50) {
       const element = document.getElementById("noButton");
       if (element && !set2.current) {
         set2.current = true;
-        // element.classList.add("noBtnAnimate");
         setInterval(() => {
-          const arr = [0.1, 2, 1, 1.4, 0.5, 0.6, 1, 1.8, 0.2];
-          const val = arr[Math.floor(Math.random() * 3)];
-          element.style.transition = "transform 2s";
+          const arr = [180, 90, 160, 430, 320, 110, 70, 220, 280];
+          const val = arr[Math.floor(Math.random() * 8)];
+          let sign = "-";
+          if (Math.random() * 100 < 50) {
+            sign = "+";
+          }
+          element.style.transition = "transform .5s";
           console.log(`scale(${val})`);
-          element.style.transform = `scale(${val})`;
-        }, 2500);
+          element.style.transform = `rotate(${sign}${val}deg)`;
+        }, 1500);
       }
     }
   }, [yesButtons]);

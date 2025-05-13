@@ -11,6 +11,7 @@ function Invite({ handleAccept, increaseDeclines }: TProps) {
       <Typography
         className="nameText"
         sx={{
+          paddingTop: "5vh",
           typography: { xs: "h3", sm: "h3", md: "h2", lg: "h1" },
         }}
       >
@@ -36,11 +37,12 @@ function Invite({ handleAccept, increaseDeclines }: TProps) {
           }}
           className="contentText"
         >
-          Jako, ze nie umiem zrobić jakichś wycinanek czy innych rzeczy, ale
+          Jako, że nie umiem zrobić jakichś wycinanek czy innych rzeczy, ale
           klikać w klawiature coś tam czasem poklikam to przygotowałem takie
-          zaproszenie, na Walentynkowe wyjście.
+          zaproszenie, na Walentynkowe wyjście. No więc tak bardziej oficjalnie
+          czy chciałabyś spędzić Walentynki razem?
           <br />
-          <span>PS1. Poklikaj pare razy w nie</span>
+          <span>PS1. Poklikaj pare razy w "NIE"</span>
           <br />
           <span>PS2. Daj znać jaki wynik udało się zrobić</span>
         </Typography>
