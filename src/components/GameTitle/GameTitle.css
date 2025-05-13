@@ -1,0 +1,42 @@
+@import url("./../../assets/base.css");
+
+/*put this container to top of screen */
+.GameTitle-Container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-xxl);
+  background-color: var(--color-primary);
+  width: 100%;
+  overflow: hidden;
+}
+
+.GameTitle-Text {
+  font-family: var(--font-family-base);
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  text-align: center;
+  user-select: none;
+  z-index: 1;
+}
+
+.GameTitle-Heart {
+  position: absolute;
+  font-size: var(--font-size-xl);
+  top: -1vh;
+  transform: translateY(0);
+  animation: fall 10s linear forwards;
+  user-select: none;
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(0vh) translateX(-10vw);
+  }
+  to {
+    transform: translateY(105vh) translateX(10vw);
+  }
+}
