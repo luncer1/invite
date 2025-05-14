@@ -1,11 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { useCookie } from "./CookiesContext";
+
+const PLAYER_MAX_LIFES = 3;
 
 const PLAYER = {
   id: 0,
   name: "Oliwia",
   score: 0,
   lives: 3,
+  lost: false,
 };
 
 // 1. Relevant domain types
@@ -14,6 +25,7 @@ export type Player = {
   name: string;
   score: number;
   lives: number;
+  lost: boolean;
 };
 
 // 2. Context types
@@ -22,6 +34,8 @@ type PlayerState = {
   addScore(score: number): void;
   resetScore(): void;
   loseLife(): void;
+  addLife(amountOfLives?: number): void;
+  resetPlayer(): void;
 };
 
 // 3. Creating context
@@ -31,11 +45,20 @@ const PlayerContext = createContext<PlayerState | undefined>(undefined);
 type PlayerContextProps = PropsWithChildren<{
   initialPlayer?: Player;
 }>;
-export function PlayerContextProvider({
-  children,
-  initialPlayer,
-}: PlayerContextProps) {
-  const [player, setPlayer] = useState<Player>(initialPlayer || PLAYER);
+export function PlayerContextProvider({ children }: PlayerContextProps) {
+  const { setCookie, cookies } = useCookie();
+  const [player, setPlayer] = useState<Player>(cookies.player || PLAYER);
+
+  useEffect(() => {
+    setCookie("player", player);
+    if (player.lives == 0) {
+      player.lost = true;
+    }
+  }, [player]);
+
+  const resetPlayer = () => {
+    setPlayer(PLAYER);
+  };
 
   const addScore = (score: number) => {
     setPlayer((prevPlayer) => ({
@@ -58,8 +81,20 @@ export function PlayerContextProvider({
     }));
   };
 
+  const addLife = (amountOfLives: number = 1) => {
+    if (player.lives + amountOfLives > PLAYER_MAX_LIFES) {
+      amountOfLives = PLAYER_MAX_LIFES - player.lives;
+    }
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      lives: prevPlayer.lives + amountOfLives,
+    }));
+  };
+
   return (
-    <PlayerContext.Provider value={{ player, addScore, resetScore, loseLife }}>
+    <PlayerContext.Provider
+      value={{ player, addScore, resetScore, loseLife, resetPlayer, addLife }}
+    >
       {children}
     </PlayerContext.Provider>
   );

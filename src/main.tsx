@@ -5,15 +5,18 @@ import App from "./App.tsx";
 import { PlayerContextProvider } from "./contexts/PlayerContext";
 import { CookiesContextProvider } from "./contexts/CookiesContext.tsx";
 import { CookiesProvider } from "react-cookie";
+import { GameStateContextProvider } from "./contexts/GameStateContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <PlayerContextProvider>
-      <CookiesProvider>
-        <CookiesContextProvider>
-          <App />
-        </CookiesContextProvider>
-      </CookiesProvider>
-    </PlayerContextProvider>
+    <CookiesProvider>
+      <CookiesContextProvider>
+        <PlayerContextProvider>
+          <GameStateContextProvider>
+            <App />
+          </GameStateContextProvider>
+        </PlayerContextProvider>
+      </CookiesContextProvider>
+    </CookiesProvider>
   </StrictMode>
 );
