@@ -1,0 +1,38 @@
+.BeatingHeart-container {
+  display: flex;
+  height: 7vw;
+  width: 7vw;
+  align-items: center;
+  justify-content: center;
+  animation: 1.5s ease 0s infinite pulse;
+}
+
+.BeatingHeart-box {
+  height: 90%;
+  max-height: 800px;
+}
+
+#BeatingHeart-heart-active {
+  stroke: url(#radialGradient);
+  height: 100%;
+  margin-left: auto;
+  animation: 1.5s ease 0s infinite beat;
+}
+
+#BeatingHeart-heart-inactive {
+  stroke: url(#radialGradient);
+  height: 100%;
+  margin-left: auto;
+}
+
+@keyframes beat {
+  0%,
+  50%,
+  100% {
+    transform: scale(1, 1);
+  }
+  30%,
+  80% {
+    transform: scale(0.92, 0.95);
+  }
+}

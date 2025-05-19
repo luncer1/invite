@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useCookie } from "./CookiesContext";
 
-const PLAYER_MAX_LIFES = 3;
+export const PLAYER_MAX_LIFES = 3;
 
 const PLAYER = {
   id: 0,
@@ -77,7 +77,7 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
   const loseLife = () => {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      lives: prevPlayer.lives - 1,
+      lives: prevPlayer.lives > 0 ? prevPlayer.lives - 1 : 0,
     }));
   };
 
