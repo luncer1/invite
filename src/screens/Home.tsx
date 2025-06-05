@@ -1,5 +1,7 @@
+import GameMenu from "../components/GameMenu/GameMenu";
+
 const Home = () => {
-  return <div></div>;
+  return <GameMenu />;
 };
 
 export default Home;

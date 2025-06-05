@@ -10,7 +10,7 @@ import {
 import { useCookie } from "./CookiesContext";
 import { usePlayer } from "./PlayerContext";
 
-const INITIAL_GAME_STATE = {
+export const INITIAL_GAME_STATE = {
   levels: [
     {
       id: 0,
