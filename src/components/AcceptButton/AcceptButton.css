@@ -1,0 +1,81 @@
+.AcceptButton-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AcceptButton-button {
+  --main1: var(--color-primary, #e57373);
+  --main2: var(--color-secondary, #ffb347);
+  --main3: var(--color-accent, #81c784);
+  background: linear-gradient(
+    100deg,
+    var(--main1) 0%,
+    var(--main2) 50%,
+    var(--main3) 100%
+  );
+  background-size: 200% 200%;
+  color: var(--color-white, #fff);
+  border: none;
+  border-radius: var(--radius-lg, 16px);
+  padding: var(--space-md, 1rem) var(--space-xl, 2rem);
+  font-size: var(--font-size-xl, 1.5rem);
+  font-family: var(--font-family-base, cursive);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: background-position 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.15s, box-shadow 0.3s, filter 0.2s;
+  animation: gradientMove 6s ease-in-out infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.AcceptButton-button::before {
+  display: none; /* Remove the shiny animated border */
+}
+
+.AcceptButton-button span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  animation: popText 2s infinite alternate cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+@keyframes popText {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.AcceptButton-button:hover,
+.AcceptButton-button:focus {
+  background-position: 100% 50%;
+  filter: brightness(1.08);
+  transform: scale(1.03);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.AcceptButton-button:active {
+  transform: scale(0.98);
+  filter: brightness(0.97);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}

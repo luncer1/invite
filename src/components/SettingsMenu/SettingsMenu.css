@@ -1,0 +1,109 @@
+.SettingsMenu-container {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.SettingsMenu-title {
+  font-family: var(--font-family-base);
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: var(--font-size-xxl);
+  color: var(--color-white);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  background-color: var(--color-white);
+}
+.SettingsMenu-labeledInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+.SettingsMenu-labeledInput label {
+  font-family: var(--font-family-base);
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: var(--font-size-lg);
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+}
+.SettingsMenu-input {
+  font-family: var(--font-family-base);
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-size: var(--font-size-md);
+  padding: var(--space-sm);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-gray);
+  width: 100%;
+  max-width: 300px;
+}
+.SettingsMenu-select {
+  font-family: var(--font-family-base);
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-size: var(--font-size-md);
+  padding: var(--space-sm);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-gray);
+  width: 100%;
+  max-width: 300px;
+}
+.SettingsMenu-option {
+  font-family: var(--font-family-base);
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-size: var(--font-size-md);
+  color: var(--color-black);
+}
+.SettingsMenu-error {
+  color: var(--color-error, #e57373);
+  font-family: var(--font-family-base);
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-size: var(--font-size-md);
+  margin-top: var(--space-sm);
+}
+.SettingsMenu-difficultyInfo {
+  margin-top: var(--space-md);
+  background: rgba(5, 5, 5, 0.92);
+  color: var(--color-black);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  font-size: var(--font-size-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 320px;
+  width: 100%;
+  text-align: left;
+  line-height: 1.7;
+  border-left: 5px solid var(--color-primary, #e57373);
+}
+.SettingsMenu-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.SettingsMenu-difficultyInfo strong {
+  color: var(--color-primary, #e57373);
+  font-weight: bold;
+}
+
+.SettingsMenu-difficultyInfo div {
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.SettingsMenu-difficultyInfo div:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,90 @@
+.confirmation-alert {
+  background: var(--color-bg, #fff);
+  position: absolute;
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  min-width: 320px;
+  max-width: 35vw;
+  z-index: 1000;
+  animation: alertPop 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+@keyframes alertPop {
+  0% {
+    transform: scale(0.8) translateY(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.confirmation-alert__icon {
+  background: linear-gradient(
+    120deg,
+    var(--color-primary, #e57373),
+    var(--color-secondary, #ffb347)
+  );
+  border-radius: 50%;
+  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 0.5rem;
+  animation: iconPulse 2s infinite alternate
+    cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.confirmation-alert__icon svg {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  stroke: var(--color-white, #fff);
+}
+
+.confirmation-alert__message p {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-text, #222);
+  text-align: center;
+  font-weight: 500;
+}
+
+.confirmation-alert__actions {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.confirmation-alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 30, 30, 0.45);
+  z-index: 999;
+  animation: overlayFadeIn 0.3s;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
