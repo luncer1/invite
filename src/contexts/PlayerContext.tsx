@@ -9,14 +9,14 @@ import {
 } from "react";
 import { useCookie } from "./CookiesContext";
 
-export const PLAYER_MAX_LIFES = 3;
-
 const PLAYER = {
   id: 0,
   name: "Oliwia",
   score: 0,
   lives: 3,
   lost: false,
+  maxLives: 10,
+  scoreMultiplier: 1,
 };
 
 // 1. Relevant domain types
@@ -26,16 +26,24 @@ export type Player = {
   score: number;
   lives: number;
   lost: boolean;
+  maxLives: number;
+  scoreMultiplier: number;
 };
 
 // 2. Context types
 type PlayerState = {
-  player: Player;
   addScore(score: number): void;
   resetScore(): void;
   loseLife(): void;
   addLife(amountOfLives?: number): void;
   resetPlayer(): void;
+  getPlayerName(): string;
+  setPlayerName(name: string): void;
+  getPlayerLives(): number;
+  getPlayerMaxLives(): number;
+  setPlayerMaxLives(maxLives: number): void;
+  setPlayerScoreMultiplier(multiplier: number): void;
+  getPlayerScoreMultiplier(): number;
 };
 
 // 3. Creating context
@@ -60,10 +68,37 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
     setPlayer(PLAYER);
   };
 
+  const getPlayerName = () => {
+    return player.name;
+  };
+
+  const getPlayerLives = () => {
+    return player.lives;
+  };
+
+  const getPlayerMaxLives = () => {
+    return player.maxLives;
+  };
+
+  const setPlayerMaxLives = (maxLives: number) => {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      maxLives: maxLives,
+      lives: maxLives,
+    }));
+  };
+
+  const setPlayerName = (name: string) => {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      name: name,
+    }));
+  };
+
   const addScore = (score: number) => {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      score: prevPlayer.score + score,
+      score: prevPlayer.score + score * player.scoreMultiplier,
     }));
   };
 
@@ -74,6 +109,16 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
     }));
   };
 
+  const setPlayerScoreMultiplier = (multiplier: number) => {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      scoreMultiplier: multiplier,
+    }));
+  };
+  const getPlayerScoreMultiplier = () => {
+    return player.scoreMultiplier;
+  };
+
   const loseLife = () => {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
@@ -82,8 +127,8 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
   };
 
   const addLife = (amountOfLives: number = 1) => {
-    if (player.lives + amountOfLives > PLAYER_MAX_LIFES) {
-      amountOfLives = PLAYER_MAX_LIFES - player.lives;
+    if (player.lives + amountOfLives > player.maxLives) {
+      amountOfLives = player.maxLives - player.lives;
     }
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
@@ -93,7 +138,22 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
 
   return (
     <PlayerContext.Provider
-      value={{ player, addScore, resetScore, loseLife, resetPlayer, addLife }}
+      value={
+        {
+          addScore,
+          resetScore,
+          loseLife,
+          resetPlayer,
+          addLife,
+          getPlayerName,
+          setPlayerName,
+          getPlayerLives,
+          getPlayerMaxLives,
+          setPlayerMaxLives,
+          setPlayerScoreMultiplier,
+          getPlayerScoreMultiplier,
+        } as PlayerState
+      }
     >
       {children}
     </PlayerContext.Provider>

@@ -10,7 +10,14 @@ import {
 import { useCookie } from "./CookiesContext";
 import { usePlayer } from "./PlayerContext";
 
+export enum Difficulty {
+  EASY = "EASY",
+  MEDIUM = "MEDIUM",
+  HARD = "HARD",
+}
+
 export const INITIAL_GAME_STATE = {
+  difficulty: Difficulty.EASY,
   levels: [
     {
       id: 0,
@@ -72,11 +79,14 @@ type Level = {
 
 export type GameState = {
   levels: Array<Level>;
+  difficulty: Difficulty;
 };
 
 type GameStateState = {
   gameState: GameState;
   resetGameState: () => void;
+  getDifficulty: () => Difficulty;
+  setDifficulty: (difficulty: Difficulty) => void;
 };
 
 const GameStateContext = createContext<GameStateState | undefined>(undefined);
@@ -85,7 +95,8 @@ type GameStateContextProps = PropsWithChildren;
 
 export function GameStateContextProvider({ children }: GameStateContextProps) {
   const { setCookie, cookies } = useCookie();
-  const { resetPlayer } = usePlayer();
+  const { resetPlayer, setPlayerMaxLives, setPlayerScoreMultiplier } =
+    usePlayer();
   const [gameState, setGameState] = useState<GameState>(
     cookies.gameState || INITIAL_GAME_STATE
   );
@@ -99,8 +110,39 @@ export function GameStateContextProvider({ children }: GameStateContextProps) {
     resetPlayer();
   };
 
+  const setDifficulty = (difficulty: Difficulty) => {
+    setGameState((prevState) => ({
+      ...prevState,
+      difficulty,
+    }));
+  };
+  const getDifficulty = (): Difficulty => {
+    return gameState.difficulty;
+  };
+
+  useEffect(() => {
+    switch (gameState.difficulty) {
+      case Difficulty.EASY:
+        setPlayerMaxLives(10);
+        setPlayerScoreMultiplier(1);
+        break;
+      case Difficulty.MEDIUM:
+        setPlayerMaxLives(5);
+        setPlayerScoreMultiplier(3);
+        break;
+      case Difficulty.HARD:
+        setPlayerMaxLives(3);
+        setPlayerScoreMultiplier(10);
+        break;
+      default:
+        setDifficulty(Difficulty.EASY);
+    }
+  }, [gameState.difficulty]);
+
   return (
-    <GameStateContext.Provider value={{ gameState, resetGameState }}>
+    <GameStateContext.Provider
+      value={{ gameState, resetGameState, getDifficulty, setDifficulty }}
+    >
       {children}
     </GameStateContext.Provider>
   );
