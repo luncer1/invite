@@ -16,6 +16,11 @@ const GameMenu = () => {
     resetGameState();
     navigate("/game");
   };
+
+  const handleContinueGame = () => {
+    navigate("/game");
+  };
+
   return (
     <div className="GameMenu-container">
       <h1 className="GameMenu-title">No cześć Kochana Oliwciu</h1>
@@ -29,10 +34,7 @@ const GameMenu = () => {
           Rozpocznij Nową Grę
         </li>
         {anyProgressDone && (
-          <li
-            className="GameMenu-option"
-            onClick={() => console.log("Kontynuuj gre")}
-          >
+          <li className="GameMenu-option" onClick={handleContinueGame}>
             Kontynuuj Grę
           </li>
         )}

@@ -29,7 +29,7 @@ const ConfirmationAlert = ({
 
   return (
     <>
-      <div className="confirmation-alert-overlay" onClick={handleCancel} />
+      <div className="confirmation-alert-overlay" />
       <div className="confirmation-alert">
         <div className="confirmation-alert__icon">
           <svg

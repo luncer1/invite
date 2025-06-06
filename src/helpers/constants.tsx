@@ -18,7 +18,8 @@ export const INITIAL_GAME_STATE = {
     {
       id: Levels.HEART_PIECES,
       name: "Serce z kawałków",
-      description: "Description of level 1",
+      description:
+        "W tym zadaniu musisz wykazać się szybkością układając nasze wspólne zdjęcie. Możesz przesuwać jedynie kawałki, które sąsiadują ze sobą. Musisz się spieszyć bo co każde 30 sekund tracisz jedno życie. Powodzenia kochanie! 😘",
       image: "image1.png",
       score: 0,
       done: false,
