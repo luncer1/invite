@@ -10,7 +10,7 @@ import { Difficulty } from "../../helpers/constants";
 
 const SettingsMenu = () => {
   const { getPlayerName, setPlayerName } = usePlayer();
-  const { getDifficulty, setDifficulty } = useGameState();
+  const { getDifficulty, setDifficulty, anyProgressDone } = useGameState();
   const navigation = useNavigate();
   const [formData, setFormData] = useState({
     playerName: getPlayerName(),
@@ -22,11 +22,12 @@ const SettingsMenu = () => {
     if (formData.playerName.trim() === "") {
       return;
     }
-    if (formData.difficulty !== getDifficulty()) {
+    if (formData.difficulty !== getDifficulty() && anyProgressDone) {
       setShowAlert(true);
       return;
     }
     setPlayerName(formData.playerName);
+    setDifficulty(formData.difficulty);
     navigation("/");
   };
 

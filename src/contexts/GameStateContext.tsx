@@ -52,7 +52,10 @@ export function GameStateContextProvider({ children }: GameStateContextProps) {
   }, [gameState]);
 
   const resetGameState = () => {
-    setGameState(INITIAL_GAME_STATE);
+    setGameState((prevState) => ({
+      ...prevState,
+      levels: INITIAL_GAME_STATE.levels,
+    }));
     resetPlayer();
   };
 

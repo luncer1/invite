@@ -44,6 +44,7 @@ type PlayerState = {
   setPlayerMaxLives(maxLives: number): void;
   setPlayerScoreMultiplier(multiplier: number): void;
   getPlayerScoreMultiplier(): number;
+  resetLives(): void;
 };
 
 // 3. Creating context
@@ -65,7 +66,8 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
   }, [player]);
 
   const resetPlayer = () => {
-    setPlayer(PLAYER);
+    resetScore();
+    resetLives();
   };
 
   const getPlayerName = () => {
@@ -99,6 +101,13 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       score: prevPlayer.score + score * player.scoreMultiplier,
+    }));
+  };
+
+  const resetLives = () => {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      lives: prevPlayer.maxLives,
     }));
   };
 
@@ -142,6 +151,7 @@ export function PlayerContextProvider({ children }: PlayerContextProps) {
         {
           addScore,
           resetScore,
+          resetLives,
           loseLife,
           resetPlayer,
           addLife,
