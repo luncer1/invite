@@ -4,6 +4,7 @@ import Home from "./screens/Home";
 import "./Router.css";
 import GameTitle from "./components/GameTitle/GameTitle";
 import Settings from "./screens/Settings";
+import Game from "./screens/Game";
 
 export default function AppRouter() {
   return (
@@ -13,6 +14,7 @@ export default function AppRouter() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/game" element={<Game />} />
         </Routes>
       </BrowserRouter>
     </div>

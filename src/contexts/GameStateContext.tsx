@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-refresh/only-export-components */
+
 import {
   createContext,
   PropsWithChildren,
@@ -9,63 +9,7 @@ import {
 } from "react";
 import { useCookie } from "./CookiesContext";
 import { usePlayer } from "./PlayerContext";
-
-export enum Difficulty {
-  EASY = "EASY",
-  MEDIUM = "MEDIUM",
-  HARD = "HARD",
-}
-
-export const INITIAL_GAME_STATE = {
-  difficulty: Difficulty.EASY,
-  levels: [
-    {
-      id: 0,
-      name: "Level 1",
-      description: "Description of level 1",
-      image: "image1.png",
-      score: 0,
-      done: false,
-      time: 0,
-    },
-    {
-      id: 1,
-      name: "Level 2",
-      description: "Description of level 2",
-      image: "image2.png",
-      score: 0,
-      done: false,
-      time: 0,
-    },
-    {
-      id: 2,
-      name: "Level 3",
-      description: "Description of level 3",
-      image: "image3.png",
-      score: 0,
-      done: false,
-      time: 0,
-    },
-    {
-      id: 3,
-      name: "Level 4",
-      description: "Description of level 4",
-      image: "image4.png",
-      score: 0,
-      done: false,
-      time: 0,
-    },
-    {
-      id: 4,
-      name: "Level 5",
-      description: "Description of level 5",
-      image: "image5.png",
-      score: 0,
-      done: false,
-      time: 0,
-    },
-  ],
-};
+import { Difficulty, INITIAL_GAME_STATE } from "../helpers/constants";
 
 type Level = {
   id: number;
@@ -83,10 +27,12 @@ export type GameState = {
 };
 
 type GameStateState = {
-  gameState: GameState;
+  getGameState: () => GameState;
   resetGameState: () => void;
   getDifficulty: () => Difficulty;
   setDifficulty: (difficulty: Difficulty) => void;
+  anyProgressDone: boolean;
+  passLevel: (levelId: number, score: number, time: number) => void;
 };
 
 const GameStateContext = createContext<GameStateState | undefined>(undefined);
@@ -110,14 +56,41 @@ export function GameStateContextProvider({ children }: GameStateContextProps) {
     resetPlayer();
   };
 
+  const anyProgressDone = gameState.levels.some((level) => level.done);
+
+  const getGameState = (): GameState => {
+    return gameState;
+  };
+
   const setDifficulty = (difficulty: Difficulty) => {
     setGameState((prevState) => ({
       ...prevState,
       difficulty,
     }));
   };
+
   const getDifficulty = (): Difficulty => {
     return gameState.difficulty;
+  };
+
+  const passLevel = (levelId: number, score: number, time: number) => {
+    setGameState((prevState) => {
+      const updatedLevels = prevState.levels.map((level) => {
+        if (level.id === levelId) {
+          return {
+            ...level,
+            done: true,
+            score: level.score + score,
+            time: level.time + time,
+          };
+        }
+        return level;
+      });
+      return {
+        ...prevState,
+        levels: updatedLevels,
+      };
+    });
   };
 
   useEffect(() => {
@@ -141,12 +114,20 @@ export function GameStateContextProvider({ children }: GameStateContextProps) {
 
   return (
     <GameStateContext.Provider
-      value={{ gameState, resetGameState, getDifficulty, setDifficulty }}
+      value={{
+        getGameState,
+        resetGameState,
+        getDifficulty,
+        setDifficulty,
+        anyProgressDone,
+        passLevel,
+      }}
     >
       {children}
     </GameStateContext.Provider>
   );
 }
+// eslint-disable-next-line react-refresh/only-export-components
 export function useGameState(): GameStateState {
   const context = useContext(GameStateContext);
   if (context === undefined) {

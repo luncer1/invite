@@ -1,4 +1,4 @@
-import { Difficulty, useGameState } from "../../contexts/GameStateContext";
+import { useGameState } from "../../contexts/GameStateContext";
 import { usePlayer } from "../../contexts/PlayerContext";
 import "./SettingsMenu.css";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ConfirmationAlert from "../ConfirmationAlert/ConfirmationAlert";
 import AcceptButton from "../AcceptButton/AcceptButton";
 import DeclineButton from "../DeclineButton/DeclineButton";
+import { Difficulty } from "../../helpers/constants";
 
 const SettingsMenu = () => {
   const { getPlayerName, setPlayerName } = usePlayer();

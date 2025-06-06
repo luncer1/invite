@@ -1,12 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import {
-  INITIAL_GAME_STATE,
-  useGameState,
-} from "../../contexts/GameStateContext";
+import { useGameState } from "../../contexts/GameStateContext";
 import "./GameMenu.css";
+import ConfirmationAlert from "../ConfirmationAlert/ConfirmationAlert";
+import { useState } from "react";
 const GameMenu = () => {
-  const { gameState } = useGameState();
+  const { anyProgressDone, resetGameState } = useGameState();
+  const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
+
+  const handleNewGame = () => {
+    if (anyProgressDone) {
+      setShowAlert(true);
+      return;
+    }
+    resetGameState();
+    navigate("/game");
+  };
   return (
     <div className="GameMenu-container">
       <h1 className="GameMenu-title">No cześć Kochana Oliwciu</h1>
@@ -16,10 +25,10 @@ const GameMenu = () => {
         zadania z listy!
       </p>
       <ul className="GameMenu-optionList">
-        <li className="GameMenu-option" onClick={() => console.log("Nowa Gra")}>
+        <li className="GameMenu-option" onClick={handleNewGame}>
           Rozpocznij Nową Grę
         </li>
-        {gameState != INITIAL_GAME_STATE && (
+        {anyProgressDone && (
           <li
             className="GameMenu-option"
             onClick={() => console.log("Kontynuuj gre")}
@@ -32,6 +41,16 @@ const GameMenu = () => {
           Ustawienia
         </li>
       </ul>
+      <ConfirmationAlert
+        show={showAlert}
+        onConfirm={() => {
+          resetGameState();
+          navigate("/game");
+          setShowAlert(false);
+        }}
+        onCancel={() => setShowAlert(false)}
+        message={"Czy na pewno chcesz rozpocząć nową grę?"}
+      />
     </div>
   );
 };
