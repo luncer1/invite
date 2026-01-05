@@ -4,6 +4,8 @@ import "./LoveCrosswords.css";
 import ConfirmationAlert from "../ConfirmationAlert/ConfirmationAlert";
 import { useGameState } from "../../contexts/GameStateContext";
 import { Levels } from "../../helpers/constants";
+import DeclineButton from "../DeclineButton/DeclineButton";
+import { formatTime } from "../../helpers/time";
 
 type CrosswordWord = { word: string; clue: string };
 
@@ -63,7 +65,7 @@ const WORDS: CrosswordWord[] = [
   { word: "PRZYTULANIE", clue: "Jeszcze więcej czułości" },
 ];
 
-const WORDS_AMOUNT = 20;
+const WORDS_AMOUNT = 3;
 
 const composeCrosswordsWords = (words: typeof WORDS): CrosswordWord[] => {
   const crossword: CrosswordWord[] = [];
@@ -221,6 +223,9 @@ const LoveCrosswords = ({ onSolved }: LoveCrosswordsProps) => {
   return (
     <div className="LoveCrosswords-container">
       <h2>{getGameState().levels[Levels.LOVE_PUZZLE].name}</h2>
+      <div className="LoveCrosswords-timer">
+        Czas: {player.didPlayerLose() ? 0 : formatTime(time)}
+      </div>
       <div className="LoveCrosswords-description">
         <p>{getGameState().levels[Levels.LOVE_PUZZLE].description}</p>
       </div>
@@ -246,6 +251,7 @@ const LoveCrosswords = ({ onSolved }: LoveCrosswordsProps) => {
             </tr>
           ))}
         </tbody>
+
         <ConfirmationAlert
           show={showAlert}
           message="Przegrałaś czy chcesz spróbować ponownie?"
@@ -256,6 +262,17 @@ const LoveCrosswords = ({ onSolved }: LoveCrosswordsProps) => {
             }
           }}
           onConfirm={resetLevel}
+        />
+      </div>
+      <div className="LoveCrosswords-controls">
+        <DeclineButton
+          onClick={() => {
+            if (onSolved) {
+              onSolved();
+            }
+            player.resetLives();
+          }}
+          label="Lista zadań"
         />
       </div>
     </div>

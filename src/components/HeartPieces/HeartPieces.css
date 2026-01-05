@@ -1,13 +1,26 @@
 .HeartPieces-container {
+  background: var(--color-surface, #fff0f6);
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: 0 6px 24px rgba(255, 105, 180, 0.12);
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: var(--space-xl);
+  border: 2px solid var(--color-primary, #e57373);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-  box-sizing: border-box;
 }
+
+.HeartPieces-container h2 {
+  font-size: var(--font-size-xxl, 2.5rem);
+  font-weight: bold;
+  color: var(--color-primary, #e57373);
+  text-align: center;
+  margin-bottom: var(--space-lg, 1.5rem);
+  text-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
+  font-family: var(--font-family-base, cursive);
+}
+
 .HeartPieces-board {
   width: 100%;
   max-width: 440px;
@@ -25,7 +38,7 @@
 .HeartPieces-description {
   text-align: center;
   font-size: 1.2rem;
-  color: var(--color-text-dark);
+  color: var(--color-text);
   margin-bottom: 1rem;
   padding: 0 1rem;
   width: 50vw;
@@ -76,7 +89,7 @@
 }
 .HeartPieces-timer {
   font-size: 1.8rem;
-  color: var(--color-text-dark);
+  color: var(--color-primary, #e57373);
   font-family: var(--font-family-base, cursive);
   margin-bottom: var(--spacing-lg);
 }

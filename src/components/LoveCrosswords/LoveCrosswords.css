@@ -148,6 +148,13 @@
   border-color: #d32f2f;
 }
 
+.LoveCrosswords-timer {
+  font-size: 1.8rem;
+  color: var(--color-primary, #e57373);
+  font-family: var(--font-family-base, cursive);
+  margin-bottom: var(--spacing-lg);
+}
+
 @media (max-width: 800px) {
   .LoveCrosswords-container {
     padding: var(--space-lg, 1.5rem);

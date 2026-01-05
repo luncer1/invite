@@ -33,7 +33,9 @@ const Game = () => {
             );
 
           case Levels.LOVERS_PAIRS:
-            return <LoversPairs />;
+            return (
+              <LoversPairs onSolved={() => setCurrentLevel(Levels.TASK_LIST)} />
+            );
           default:
             return <div>Unknown Level</div>;
         }

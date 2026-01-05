@@ -1,15 +1,46 @@
 /* Basic styles for LoversPairs memory game component */
 .LoversPairs-container {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 8px;
+  background: var(--color-surface, #fff0f6);
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: 0 6px 24px rgba(255, 105, 180, 0.12);
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: var(--space-xl);
+  border: 2px solid var(--color-primary, #e57373);
+}
+
+.LoversPairs-description {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  width: 50vw;
+}
+
+.LoversPairs-container h2 {
+  font-size: var(--font-size-xxl, 2.5rem);
+  font-weight: bold;
+  color: var(--color-primary, #e57373);
+  text-align: center;
+  margin-bottom: var(--space-lg, 1.5rem);
+  text-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
+  font-family: var(--font-family-base, cursive);
+}
+
+.LoversPairs-description p {
+  margin: 0;
+  line-height: 1.5;
+  font-family: var(--font-family-base, cursive);
 }
 
 .LoversPairs-controls {
   display: flex;
   gap: 12px;
   align-items: center;
+  justify-content: center;
   margin-bottom: 12px;
+  margin-top: 12px;
 }
 
 .LoversPairs-status {
@@ -81,4 +112,11 @@
 
 .LoversPairs-tile.matched {
   outline: 3px solid #2ecc71;
+}
+
+.LoversPairs-timer {
+  font-size: 1.8rem;
+  color: var(--color-primary, #e57373);
+  font-family: var(--font-family-base, cursive);
+  margin-bottom: var(--spacing-lg);
 }

@@ -69,7 +69,6 @@ const HeartPieces: React.FC<HeartPiecesProps> = ({
   }, []);
 
   useEffect(() => {
-    console.log(`Time: ${time}s`);
     if (time != 0 && time % 30 === 0) {
       loseLife();
     }
@@ -148,6 +147,7 @@ const HeartPieces: React.FC<HeartPiecesProps> = ({
 
   return (
     <div className="HeartPieces-container">
+      <h2>{getGameState().levels[Levels.HEART_PIECES].name}</h2>
       <div className="HeartPieces-timer">
         Czas: {didPlayerLose() ? 0 : formatTime(time)}
       </div>

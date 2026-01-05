@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./LoversPairs.css";
 import heartImg from "../../assets/Heart_pieces_img.JPEG";
+import DeclineButton from "../DeclineButton/DeclineButton";
+import { useGameState } from "../../contexts/GameStateContext";
+import { Levels } from "../../helpers/constants";
+import { usePlayer } from "../../contexts/PlayerContext";
+import { formatTime } from "../../helpers/time";
+import ConfirmationAlert from "../ConfirmationAlert/ConfirmationAlert";
 
 type Tile = {
   id: number;
@@ -13,6 +19,7 @@ type Tile = {
 type LoversPairsProps = {
   images?: string[];
   tilesCount?: number; // total number of tiles (must be even)
+  onSolved?: () => void;
 };
 
 const DEFAULT_IMAGES = [heartImg, heartImg, heartImg];
@@ -60,17 +67,22 @@ const generateTiles = (images: string[], tilesCount: number): Tile[] => {
 
 const LoversPairs: React.FC<LoversPairsProps> = ({
   images = DEFAULT_IMAGES,
-  tilesCount = 30,
+  tilesCount = 6,
+  onSolved,
 }) => {
   // Generate tiles on initial load (or when props change)
   const initialTiles = useMemo(
     () => generateTiles(images, tilesCount),
     [images, tilesCount]
   );
+  const { passLevel, getGameState } = useGameState();
+  const [showAlert, setShowAlert] = useState(false);
   const [tiles, setTiles] = useState<Tile[]>(initialTiles);
   const [first, setFirst] = useState<number | null>(null);
   const [second, setSecond] = useState<number | null>(null);
   const [disabled, setDisabled] = useState(false);
+  const [time, setTime] = useState(0);
+  const player = usePlayer();
 
   useEffect(() => {
     setTiles(initialTiles);
@@ -78,6 +90,24 @@ const LoversPairs: React.FC<LoversPairsProps> = ({
     setSecond(null);
     setDisabled(false);
   }, [initialTiles]);
+
+  useEffect(() => {
+    const timer_interval = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
+    return () => clearInterval(timer_interval);
+  }, []);
+
+  useEffect(() => {
+    if (time != 0 && time % 30 === 0) {
+      player.loseLife();
+    }
+    if (player.didPlayerLose()) {
+      setShowAlert(true);
+      return;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time]);
 
   useEffect(() => {
     if (first === null || second === null) return;
@@ -113,6 +143,16 @@ const LoversPairs: React.FC<LoversPairsProps> = ({
     setDisabled(false);
   };
 
+  const resetLevel = () => {
+    player.resetLives();
+    setShowAlert(false);
+    setTime(0);
+    setTiles(generateTiles(images, tilesCount));
+    setFirst(null);
+    setSecond(null);
+    setDisabled(false);
+  };
+
   const handleTileClick = (id: number) => {
     if (disabled) return;
     const clicked = tiles.find((t) => t.id === id);
@@ -131,24 +171,30 @@ const LoversPairs: React.FC<LoversPairsProps> = ({
     }
   };
 
-  const resetGame = () => {
-    const newTiles = generateTiles(images, tilesCount);
-    setTiles(newTiles);
-    setFirst(null);
-    setSecond(null);
-    setDisabled(false);
+  const calculatePoints = () => {
+    return Math.ceil((player.getPlayerScoreMultiplier() / (time || 1)) * 1000); // Avoid division by zero
   };
 
   const allMatched = tiles.every((t) => t.matched);
 
+  useEffect(() => {
+    if (allMatched) {
+      passLevel(Levels.LOVERS_PAIRS, calculatePoints(), time);
+      if (onSolved) {
+        onSolved();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tiles, allMatched]);
+
   return (
     <div className="LoversPairs-container">
-      <h3>Lovers Pairs — Memory Game</h3>
-      <div className="LoversPairs-controls">
-        <button onClick={resetGame}>New Game</button>
-        <span className="LoversPairs-status">
-          {allMatched ? "You win! 🎉" : "Find pairs"}
-        </span>
+      <h2>{getGameState().levels[Levels.LOVERS_PAIRS].name}</h2>
+      <div className="LoversPairs-timer">
+        Czas: {player.didPlayerLose() ? 0 : formatTime(time)}
+      </div>
+      <div className="LoversPairs-description">
+        <p>{getGameState().levels[Levels.LOVERS_PAIRS].description}</p>
       </div>
 
       <div
@@ -174,6 +220,28 @@ const LoversPairs: React.FC<LoversPairsProps> = ({
           </div>
         ))}
       </div>
+      <div className="LoversPairs-controls">
+        <DeclineButton
+          onClick={() => {
+            if (onSolved) {
+              onSolved();
+            }
+            player.resetLives();
+          }}
+          label="Lista zadań"
+        />
+      </div>
+      <ConfirmationAlert
+        show={showAlert}
+        message="Przegrałaś czy chcesz spróbować ponownie?"
+        onCancel={() => {
+          if (onSolved) {
+            player.resetLives();
+            onSolved();
+          }
+        }}
+        onConfirm={resetLevel}
+      />
     </div>
   );
 };
