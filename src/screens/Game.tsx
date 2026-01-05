@@ -4,6 +4,8 @@ import { Levels } from "../helpers/constants";
 import PlayerHearths from "../components/PlayerHearths/PlayerHearths";
 import HeartPieces from "../components/HeartPieces/HeartPieces";
 import picture from "../assets/Heart_pieces_img.JPEG";
+import LoveCrosswords from "../components/LoveCrosswords/LoveCrosswords";
+import LoversPairs from "../components/LoversPairs/LoversPairs";
 
 const Game = () => {
   const [currentLevel, setCurrentLevel] = useState(Levels.TASK_LIST);
@@ -23,6 +25,15 @@ const Game = () => {
                 onSolved={() => setCurrentLevel(Levels.TASK_LIST)}
               />
             );
+          case Levels.LOVE_PUZZLE:
+            return (
+              <LoveCrosswords
+                onSolved={() => setCurrentLevel(Levels.TASK_LIST)}
+              />
+            );
+
+          case Levels.LOVERS_PAIRS:
+            return <LoversPairs />;
           default:
             return <div>Unknown Level</div>;
         }

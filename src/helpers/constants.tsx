@@ -27,8 +27,9 @@ export const INITIAL_GAME_STATE = {
     },
     {
       id: Levels.LOVE_PUZZLE,
-      name: "Miłosna łamigłówka",
-      description: "Description of level 2",
+      name: "Miłosna krzyżówka",
+      description:
+        "Rozwiąż miłosną krzyżówkę pełną haseł związanych z naszymi wspólnymi wspomnieniami, ulubionymi miejscami i drobnymi tajemnicami. Każde poprawne słowo przybliża Cię do nagrody — uważaj na błędy, bo odejmują życie. Powodzenia, skarbie!",
       image: "image2.png",
       score: 0,
       done: false,

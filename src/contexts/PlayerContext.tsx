@@ -31,7 +31,7 @@ export type Player = {
 };
 
 // 2. Context types
-type PlayerState = {
+export type PlayerState = {
   addScore(score: number): void;
   resetScore(): void;
   loseLife(): void;

@@ -1,0 +1,265 @@
+import { PlayerState, usePlayer } from "../../contexts/PlayerContext";
+import { useEffect, useState } from "react";
+import "./LoveCrosswords.css";
+import ConfirmationAlert from "../ConfirmationAlert/ConfirmationAlert";
+import { useGameState } from "../../contexts/GameStateContext";
+import { Levels } from "../../helpers/constants";
+
+type CrosswordWord = { word: string; clue: string };
+
+// 1. Define 50 words and their descriptions
+const WORDS: CrosswordWord[] = [
+  { word: "OLIWIA", clue: "Imię najważniejszej osoby w grze" },
+  { word: "SERCE", clue: "Bijące dla Ciebie" },
+  { word: "PUZZLE", clue: "Układanka, którą musisz rozwiązać" },
+  { word: "KWIATY", clue: "Dostajesz je na Walentynki" },
+  { word: "RANDKA", clue: "Spotkanie tylko we dwoje" },
+  { word: "MIŁOŚĆ", clue: "Najważniejsze uczucie" },
+  { word: "BUZIAK", clue: "Słodki pocałunek" },
+  { word: "PRZYTUL", clue: "Czuły gest, który lubisz" },
+  { word: "SZCZĘŚCIE", clue: "Czujesz je będąc razem" },
+  { word: "LIST", clue: "Miłosna wiadomość na papierze" },
+  { word: "CIEPŁO", clue: "To, co czujesz przy ukochanej osobie" },
+  { word: "TULIPAN", clue: "Kwiat często wręczany wiosną" },
+  { word: "KINO", clue: "Miejsce na romantyczny wieczór" },
+  { word: "TORT", clue: "Słodki wypiek na specjalne okazje" },
+  {
+    word: "NIESPODZIANKA",
+    clue: "Coś, co sprawia radość, gdy się nie spodziewasz",
+  },
+  { word: "ZDJĘCIE", clue: "Uwieczniony wspólny moment" },
+  { word: "PIOSENKA", clue: "Często śpiewana razem" },
+  { word: "WSPOMNIENIE", clue: "To, co zostaje po pięknych chwilach" },
+  { word: "OBIAD", clue: "Wspólny posiłek" },
+  { word: "PREZENT", clue: "Dajesz go z serca" },
+  { word: "UŚMIECH", clue: "Najpiękniejsza ozdoba twarzy" },
+  { word: "TANIEC", clue: "Ruch w rytm muzyki" },
+  { word: "WALENTYNKI", clue: "Święto zakochanych" },
+  { word: "KUBEK", clue: "Naczynie na herbatę lub kawę" },
+  { word: "KSIĄŻKA", clue: "Czytana na dobranoc" },
+  { word: "PODRÓŻ", clue: "Wspólna wyprawa" },
+  { word: "ZABAWA", clue: "Czas spędzony na śmiechu" },
+  { word: "PRZYJAŹŃ", clue: "Podstawa każdego związku" },
+  { word: "SŁODYCZE", clue: "Coś słodkiego do jedzenia" },
+  { word: "KOC", clue: "Otulasz się nim w zimne wieczory" },
+  { word: "FILM", clue: "Oglądany razem" },
+  { word: "PIKNIK", clue: "Jedzenie na świeżym powietrzu" },
+  { word: "ROWER", clue: "Wspólna przejażdżka" },
+  { word: "GRA", clue: "To, co właśnie grasz" },
+  { word: "ZEGAREK", clue: "Mierzy czas wspólnych chwil" },
+  { word: "KARTKA", clue: "Piszesz na niej życzenia" },
+  { word: "KAWA", clue: "Pobudza rano" },
+  { word: "HERBATA", clue: "Rozgrzewa w zimowe dni" },
+  { word: "ŚNIEG", clue: "Biały puch zimą" },
+  { word: "SŁOŃCE", clue: "Ogrzewa latem" },
+  { word: "PLAŻA", clue: "Miejsce na wakacyjny relaks" },
+  { word: "GÓRY", clue: "Wysokie i majestatyczne" },
+  { word: "MORZE", clue: "Szum fal i piasek" },
+  { word: "ZIMA", clue: "Chłodna pora roku" },
+  { word: "WIOSNA", clue: "Czas budzenia się do życia" },
+  { word: "LATO", clue: "Najcieplejsza pora roku" },
+  { word: "JESIEŃ", clue: "Liście spadają z drzew" },
+  { word: "DOM", clue: "Tam, gdzie serce Twoje" },
+  { word: "PRZYTULANIE", clue: "Jeszcze więcej czułości" },
+];
+
+const WORDS_AMOUNT = 20;
+
+const composeCrosswordsWords = (words: typeof WORDS): CrosswordWord[] => {
+  const crossword: CrosswordWord[] = [];
+  const usedIndices: Set<number> = new Set();
+  for (let i = 0; i < WORDS_AMOUNT; i++) {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    if (crossword.length == 0) {
+      crossword.push(words[randomIndex]);
+      usedIndices.add(randomIndex);
+      continue;
+    }
+    if (usedIndices.has(randomIndex)) {
+      i--;
+      continue;
+    }
+    crossword.push(words[randomIndex]);
+    usedIndices.add(randomIndex);
+  }
+  return crossword;
+};
+
+const createInputForLetter = (
+  letterIndex: number,
+  word: string,
+  player: PlayerState
+) => {
+  return (
+    <input
+      type="text"
+      maxLength={1}
+      className="LoveCrosswords-letter-input"
+      data-letter-index={letterIndex}
+      onInput={(e) => {
+        const input = e.currentTarget as HTMLInputElement;
+        if (input.value.length >= 1) {
+          const next = input.parentElement?.nextElementSibling?.querySelector(
+            "input"
+          ) as HTMLInputElement | null;
+          const allInputs =
+            input.parentElement?.parentElement?.querySelectorAll(
+              "input"
+            ) as NodeListOf<HTMLInputElement>;
+          const allFilled = Array.from(allInputs).every(
+            (inp) => inp.value.length === 1
+          );
+          next?.focus();
+          if (allFilled) {
+            const wordTogether = Array.from(allInputs)
+              .map((inp) => inp.value.toUpperCase())
+              .join("");
+            if (wordTogether === word) {
+              allInputs.forEach((inp) => {
+                inp.classList.add("LoveCrosswords-correct");
+              });
+            } else {
+              player.loseLife();
+              allInputs.forEach((inp) => {
+                inp.classList.add("LoveCrosswords-incorrect");
+              });
+            }
+          } else {
+            allInputs.forEach((inp) => {
+              inp.classList.remove("LoveCrosswords-correct");
+              inp.classList.remove("LoveCrosswords-incorrect");
+            });
+          }
+        }
+      }}
+      onKeyDown={(e) => {
+        const input = e.currentTarget as HTMLInputElement;
+        // If Backspace pressed on an empty input, move focus to previous input
+        if (e.key === "Backspace" && input.value === "") {
+          const prev =
+            input.parentElement?.previousElementSibling?.querySelector(
+              "input"
+            ) as HTMLInputElement | null;
+
+          const allInputs =
+            input.parentElement?.parentElement?.querySelectorAll(
+              "input"
+            ) as NodeListOf<HTMLInputElement>;
+
+          allInputs.forEach((inp) => {
+            inp.classList.remove("LoveCrosswords-correct");
+            inp.classList.remove("LoveCrosswords-incorrect");
+          });
+
+          prev?.focus();
+        }
+      }}
+    />
+  );
+};
+interface LoveCrosswordsProps {
+  onSolved?: () => void;
+}
+const LoveCrosswords = ({ onSolved }: LoveCrosswordsProps) => {
+  // Generate crossword words only once on initial load
+  const [crosswordWords, setCrosswordsWords] = useState(
+    composeCrosswordsWords(WORDS)
+  );
+  const [time, setTime] = useState(0);
+  const player = usePlayer();
+  const { passLevel, getGameState } = useGameState();
+  const [showAlert, setShowAlert] = useState(false);
+
+  const resetLevel = () => {
+    player.resetLives();
+    setShowAlert(false);
+    setTime(0);
+    setCrosswordsWords(composeCrosswordsWords(WORDS));
+    //add here clear all inputs
+    const allInputs = document.querySelectorAll(
+      ".LoveCrosswords-letter-input"
+    ) as NodeListOf<HTMLInputElement>;
+    allInputs.forEach((inp) => {
+      inp.value = "";
+      inp.classList.remove("LoveCrosswords-correct");
+      inp.classList.remove("LoveCrosswords-incorrect");
+    });
+  };
+
+  useEffect(() => {
+    const timer_interval = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
+    return () => clearInterval(timer_interval);
+  }, []);
+
+  useEffect(() => {
+    if (player.didPlayerLose()) {
+      setShowAlert(true);
+      return;
+    }
+    const allInputs = document.querySelectorAll(
+      ".LoveCrosswords-letter-input"
+    ) as NodeListOf<HTMLInputElement>;
+    let allCorrect = true;
+    allInputs.forEach((inp) => {
+      if (!inp.classList.contains("LoveCrosswords-correct")) {
+        allCorrect = false;
+      }
+    });
+
+    if (allCorrect && onSolved) {
+      passLevel(
+        Levels.LOVE_PUZZLE,
+        allInputs.length * 10 * player.getPlayerScoreMultiplier(),
+        time
+      );
+      onSolved();
+    }
+  }, [player, onSolved, passLevel, time]);
+
+  return (
+    <div className="LoveCrosswords-container">
+      <h2>{getGameState().levels[Levels.LOVE_PUZZLE].name}</h2>
+      <div className="LoveCrosswords-description">
+        <p>{getGameState().levels[Levels.LOVE_PUZZLE].description}</p>
+      </div>
+      <div className="LoveCrosswords-grid">
+        <tbody>
+          {crosswordWords.map((crosswordWord, index) => (
+            <tr key={index} className="LoveCrosswords-row">
+              <td className="LoveCrosswords-clue-cell">
+                <span className="LoveCrosswords-clue-number">{index + 1}.</span>{" "}
+                {crosswordWord.clue}
+              </td>
+              <td className="LoveCrosswords-inputs-cell">
+                {crosswordWord.word.split("").map((_, letterIndex) => (
+                  <span key={letterIndex}>
+                    {createInputForLetter(
+                      letterIndex,
+                      crosswordWord.word,
+                      player
+                    )}
+                  </span>
+                ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        <ConfirmationAlert
+          show={showAlert}
+          message="Przegrałaś czy chcesz spróbować ponownie?"
+          onCancel={() => {
+            if (onSolved) {
+              player.resetLives();
+              onSolved();
+            }
+          }}
+          onConfirm={resetLevel}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default LoveCrosswords;

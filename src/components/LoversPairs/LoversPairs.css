@@ -1,0 +1,84 @@
+/* Basic styles for LoversPairs memory game component */
+.LoversPairs-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.LoversPairs-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.LoversPairs-status {
+  color: #333;
+  font-weight: 500;
+}
+
+.LoversPairs-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.LoversPairs-tile {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* square */
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f3f3f3;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: block;
+}
+
+.LoversPairs-front,
+.LoversPairs-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.LoversPairs-front {
+  background: linear-gradient(135deg, #ff6b6b, #ff8787);
+  color: white;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.LoversPairs-back {
+  background: white;
+  transform: scale(0.96);
+  opacity: 0; /* hidden by default */
+  z-index: 1;
+  padding: 8px;
+  pointer-events: none;
+}
+
+/* When revealed, show the back (image) and hide the front */
+.LoversPairs-tile.revealed .LoversPairs-back {
+  transform: scale(1);
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.LoversPairs-tile.revealed .LoversPairs-front {
+  opacity: 0;
+  z-index: 1;
+}
+
+.LoversPairs-back img {
+  width: 160%;
+  height: 160%;
+  object-fit: contain;
+}
+
+.LoversPairs-tile.matched {
+  outline: 3px solid #2ecc71;
+}

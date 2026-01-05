@@ -1,0 +1,169 @@
+.LoveCrosswords-container {
+  background: var(--color-surface, #fff0f6);
+  border-radius: var(--radius-lg, 24px);
+  box-shadow: 0 6px 24px rgba(255, 105, 180, 0.12);
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: var(--space-xl);
+  border: 2px solid var(--color-primary, #e57373);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.LoveCrosswords-description {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  width: 50vw;
+}
+
+.LoveCrosswords-description p {
+  margin: 0;
+  line-height: 1.5;
+  font-family: var(--font-family-base, cursive);
+}
+
+.LoveCrosswords-container h2 {
+  font-size: var(--font-size-xxl, 2.5rem);
+  font-weight: bold;
+  color: var(--color-primary, #e57373);
+  text-align: center;
+  margin-bottom: var(--space-lg, 1.5rem);
+  text-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
+  font-family: var(--font-family-base, cursive);
+}
+
+.LoveCrosswords-grid {
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.08);
+  overflow: auto;
+  display: table;
+}
+
+.LoveCrosswords-grid tbody {
+  display: table-row-group;
+}
+
+.LoveCrosswords-grid tr {
+  display: table-row;
+}
+
+.LoveCrosswords-grid td {
+  display: table-cell;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.LoveCrosswords-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md, 1rem);
+  margin-top: var(--space-lg, 1.5rem);
+}
+
+.LoveCrosswords-clues {
+  margin-top: var(--space-xl, 2rem);
+  background: #fff0f6;
+  border-radius: 16px;
+  padding: var(--space-lg, 1.5rem);
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.08);
+  width: 100%;
+  max-width: 600px;
+}
+
+.LoveCrosswords-clues h3 {
+  font-size: var(--font-size-xl, 1.5rem);
+  color: var(--color-primary, #e57373);
+  margin-bottom: var(--space-md, 1rem);
+  font-family: var(--font-family-base, cursive);
+}
+
+.LoveCrosswords-clue-cell {
+  background-color: #ffebf0;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm, 0.9rem);
+  color: #ad1457;
+  margin-right: 0.5em;
+  font-family: var(--font-family-base, cursive);
+}
+
+.LoveCrosswords-inputs-cell {
+  border: 1px solid #e57373;
+  text-transform: uppercase;
+  font-size: var(--font-size-md, 1rem);
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-primary, #e57373);
+  font-family: var(--font-family-base, cursive);
+}
+
+.LoveCrosswords-inputs-cell span input {
+  background-color: var(--color-primary-light, #fff0f6);
+  border: none;
+  height: 64px;
+  width: 64px;
+  font-size: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-primary, #e57373);
+}
+
+.LoveCrosswords-clues ol {
+  padding-left: 1.5em;
+  margin: 0;
+}
+
+.LoveCrosswords-clues li {
+  font-size: var(--font-size-lg, 1.2rem);
+  color: #ad1457;
+  margin-bottom: 0.7em;
+  font-family: var(--font-family-base, cursive);
+}
+
+.LoveCrosswords-clues strong {
+  color: #e57373;
+  font-weight: bold;
+}
+
+.LoveCrosswords-correct {
+  background-color: #c8e6c9 !important;
+  border-color: #388e3c;
+}
+
+.LoveCrosswords-incorrect {
+  background-color: #ffcdd2 !important;
+  border-color: #d32f2f;
+}
+
+@media (max-width: 800px) {
+  .LoveCrosswords-container {
+    padding: var(--space-lg, 1.5rem);
+    max-width: 98vw;
+  }
+  .LoveCrosswords-clues {
+    max-width: 98vw;
+    padding: var(--space-md, 1rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .LoveCrosswords-container {
+    padding: var(--space-md, 1rem);
+  }
+  .LoveCrosswords-clues {
+    padding: var(--space-sm, 0.5rem);
+  }
+}
