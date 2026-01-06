@@ -9,63 +9,32 @@ import { formatTime } from "../../helpers/time";
 
 type CrosswordWord = { word: string; clue: string };
 
-// 1. Define 50 words and their descriptions
 const WORDS: CrosswordWord[] = [
   { word: "OLIWIA", clue: "Imię najważniejszej osoby w grze" },
-  { word: "SERCE", clue: "Bijące dla Ciebie" },
-  { word: "PUZZLE", clue: "Układanka, którą musisz rozwiązać" },
-  { word: "KWIATY", clue: "Dostajesz je na Walentynki" },
+  { word: "WARSZAWA", clue: "W tym mieście był nasz pierwszy wspólny wyjazd" },
   { word: "RANDKA", clue: "Spotkanie tylko we dwoje" },
   { word: "MIŁOŚĆ", clue: "Najważniejsze uczucie" },
-  { word: "BUZIAK", clue: "Słodki pocałunek" },
-  { word: "PRZYTUL", clue: "Czuły gest, który lubisz" },
-  { word: "SZCZĘŚCIE", clue: "Czujesz je będąc razem" },
-  { word: "LIST", clue: "Miłosna wiadomość na papierze" },
-  { word: "CIEPŁO", clue: "To, co czujesz przy ukochanej osobie" },
-  { word: "TULIPAN", clue: "Kwiat często wręczany wiosną" },
-  { word: "KINO", clue: "Miejsce na romantyczny wieczór" },
-  { word: "TORT", clue: "Słodki wypiek na specjalne okazje" },
+  { word: "MIZIANIE", clue: "Oliwia to uwielbia" },
   {
-    word: "NIESPODZIANKA",
-    clue: "Coś, co sprawia radość, gdy się nie spodziewasz",
+    word: "NOSFERATU",
+    clue: "Pierwszy (i jedyny XD) film na którym byliśmy w kinie",
   },
-  { word: "ZDJĘCIE", clue: "Uwieczniony wspólny moment" },
-  { word: "PIOSENKA", clue: "Często śpiewana razem" },
-  { word: "WSPOMNIENIE", clue: "To, co zostaje po pięknych chwilach" },
-  { word: "OBIAD", clue: "Wspólny posiłek" },
-  { word: "PREZENT", clue: "Dajesz go z serca" },
-  { word: "UŚMIECH", clue: "Najpiękniejsza ozdoba twarzy" },
-  { word: "TANIEC", clue: "Ruch w rytm muzyki" },
-  { word: "WALENTYNKI", clue: "Święto zakochanych" },
-  { word: "KUBEK", clue: "Naczynie na herbatę lub kawę" },
-  { word: "KSIĄŻKA", clue: "Czytana na dobranoc" },
-  { word: "PODRÓŻ", clue: "Wspólna wyprawa" },
-  { word: "ZABAWA", clue: "Czas spędzony na śmiechu" },
-  { word: "PRZYJAŹŃ", clue: "Podstawa każdego związku" },
-  { word: "SŁODYCZE", clue: "Coś słodkiego do jedzenia" },
-  { word: "KOC", clue: "Otulasz się nim w zimne wieczory" },
-  { word: "FILM", clue: "Oglądany razem" },
-  { word: "PIKNIK", clue: "Jedzenie na świeżym powietrzu" },
-  { word: "ROWER", clue: "Wspólna przejażdżka" },
-  { word: "GRA", clue: "To, co właśnie grasz" },
-  { word: "ZEGAREK", clue: "Mierzy czas wspólnych chwil" },
-  { word: "KARTKA", clue: "Piszesz na niej życzenia" },
-  { word: "KAWA", clue: "Pobudza rano" },
-  { word: "HERBATA", clue: "Rozgrzewa w zimowe dni" },
-  { word: "ŚNIEG", clue: "Biały puch zimą" },
-  { word: "SŁOŃCE", clue: "Ogrzewa latem" },
-  { word: "PLAŻA", clue: "Miejsce na wakacyjny relaks" },
-  { word: "GÓRY", clue: "Wysokie i majestatyczne" },
-  { word: "MORZE", clue: "Szum fal i piasek" },
-  { word: "ZIMA", clue: "Chłodna pora roku" },
-  { word: "WIOSNA", clue: "Czas budzenia się do życia" },
-  { word: "LATO", clue: "Najcieplejsza pora roku" },
-  { word: "JESIEŃ", clue: "Liście spadają z drzew" },
-  { word: "DOM", clue: "Tam, gdzie serce Twoje" },
-  { word: "PRZYTULANIE", clue: "Jeszcze więcej czułości" },
+  { word: "TORT", clue: "Edytowałem tam twój wiek" },
+  { word: "BARCELONA", clue: "Byliśmy tam na pierwszym wyjeździe za granicę" },
+  { word: "TUNEZJA", clue: "Pierwsze wspólne wakacje" },
+  { word: "ALI", clue: "Poznaliśmy na wyjeździe" },
+  { word: "USTROŃ", clue: "Byliśmy tam na sylwestrze" },
+  { word: "OLKA", clue: "Atencjuszka na studiach" },
+  { word: "DREZYNA", clue: "Rower ale na torach" },
+  {
+    word: "ŚWIATEŁ",
+    clue: "W tym ogrodzie mieliśmy pierwsze zdjęcie (Ogród ...)",
+  },
+  { word: "BRYTOLEK", clue: "Twoje prawie praca XD" },
+  { word: "LINDORKI", clue: "Ulubione słodycze Oliwii" },
 ];
 
-const WORDS_AMOUNT = 3;
+const WORDS_AMOUNT = 10;
 
 const composeCrosswordsWords = (words: typeof WORDS): CrosswordWord[] => {
   const crossword: CrosswordWord[] = [];
@@ -100,10 +69,10 @@ const createInputForLetter = (
       data-letter-index={letterIndex}
       onInput={(e) => {
         const input = e.currentTarget as HTMLInputElement;
+        const next = input.parentElement?.nextElementSibling?.querySelector(
+          "input"
+        ) as HTMLInputElement | null;
         if (input.value.length >= 1) {
-          const next = input.parentElement?.nextElementSibling?.querySelector(
-            "input"
-          ) as HTMLInputElement | null;
           const allInputs =
             input.parentElement?.parentElement?.querySelectorAll(
               "input"
@@ -118,11 +87,13 @@ const createInputForLetter = (
               .join("");
             if (wordTogether === word) {
               allInputs.forEach((inp) => {
+                inp.classList.remove("LoveCrosswords-incorrect");
                 inp.classList.add("LoveCrosswords-correct");
               });
             } else {
               player.loseLife();
               allInputs.forEach((inp) => {
+                inp.classList.remove("LoveCrosswords-correct");
                 inp.classList.add("LoveCrosswords-incorrect");
               });
             }
@@ -136,8 +107,11 @@ const createInputForLetter = (
       }}
       onKeyDown={(e) => {
         const input = e.currentTarget as HTMLInputElement;
+
         // If Backspace pressed on an empty input, move focus to previous input
-        if (e.key === "Backspace" && input.value === "") {
+        if (e.key === "Backspace") {
+          e.preventDefault();
+
           const prev =
             input.parentElement?.previousElementSibling?.querySelector(
               "input"
@@ -147,13 +121,18 @@ const createInputForLetter = (
             input.parentElement?.parentElement?.querySelectorAll(
               "input"
             ) as NodeListOf<HTMLInputElement>;
-
+          console.log({ allInputs });
           allInputs.forEach((inp) => {
             inp.classList.remove("LoveCrosswords-correct");
             inp.classList.remove("LoveCrosswords-incorrect");
           });
-
-          prev?.focus();
+          if (input.value === "") {
+            prev?.focus();
+            if (prev) {
+              prev.value = "";
+            }
+          }
+          input.value = "";
         }
       }}
     />
@@ -210,12 +189,16 @@ const LoveCrosswords = ({ onSolved }: LoveCrosswordsProps) => {
       }
     });
 
+    const calculatePoints = () => {
+      return Math.ceil(
+        (player.getPlayerScoreMultiplier() / (time || 1)) * 1000
+      ); // Avoid division by zero
+    };
+
     if (allCorrect && onSolved) {
-      passLevel(
-        Levels.LOVE_PUZZLE,
-        allInputs.length * 10 * player.getPlayerScoreMultiplier(),
-        time
-      );
+      passLevel(Levels.LOVE_PUZZLE, calculatePoints(), time);
+      player.addScore(calculatePoints());
+      player.resetLives();
       onSolved();
     }
   }, [player, onSolved, passLevel, time]);

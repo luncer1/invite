@@ -87,8 +87,9 @@
   transform: scale(0.96);
   opacity: 0; /* hidden by default */
   z-index: 1;
-  padding: 8px;
+  padding: 0; /* remove padding so image can fill whole tile */
   pointer-events: none;
+  box-sizing: border-box;
 }
 
 /* When revealed, show the back (image) and hide the front */
@@ -105,9 +106,11 @@
 }
 
 .LoversPairs-back img {
-  width: 160%;
-  height: 160%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fill the tile, cropping if necessary */
+  object-position: center center; /* center the image */
+  display: block;
 }
 
 .LoversPairs-tile.matched {

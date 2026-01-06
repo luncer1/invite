@@ -2,9 +2,7 @@ export enum Levels {
   TASK_LIST = -1,
   HEART_PIECES = 0,
   LOVE_PUZZLE = 1,
-  CUPID_ARROW = 2,
-  LOVERS_PAIRS = 3,
-  LOVE_QUIZ = 4,
+  LOVERS_PAIRS = 2,
 }
 export enum Difficulty {
   EASY = "EASY",
@@ -19,7 +17,7 @@ export const INITIAL_GAME_STATE = {
       id: Levels.HEART_PIECES,
       name: "Serce z kawałków",
       description:
-        "W tym zadaniu musisz wykazać się szybkością układając nasze wspólne zdjęcie. Możesz przesuwać jedynie kawałki, które sąsiadują ze sobą. Musisz się spieszyć bo co każde 30 sekund tracisz jedno życie. Powodzenia kochanie! 😘",
+        "W tym zadaniu musisz wykazać się szybkością układając nasze wspólne zdjęcie. Możesz przesuwać jedynie kawałki, które sąsiadują ze sobą, klikając najpierw na jeden, później na drugi. Musisz się spieszyć bo co każde 30 sekund tracisz jedno życie. Powodzenia kochanie! 😘",
       image: "image1.png",
       score: 0,
       done: false,
@@ -36,28 +34,10 @@ export const INITIAL_GAME_STATE = {
       time: 0,
     },
     {
-      id: Levels.CUPID_ARROW,
-      name: "Strzała Amora",
-      description: "Description of level 3",
-      image: "image3.png",
-      score: 0,
-      done: false,
-      time: 0,
-    },
-    {
       id: Levels.LOVERS_PAIRS,
       name: "Pary zakochanych",
       description: "Description of level 4",
       image: "image4.png",
-      score: 0,
-      done: false,
-      time: 0,
-    },
-    {
-      id: Levels.LOVE_QUIZ,
-      name: "Miłosny Quiz",
-      description: "Description of level 5",
-      image: "image5.png",
       score: 0,
       done: false,
       time: 0,

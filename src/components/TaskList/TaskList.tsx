@@ -13,28 +13,31 @@ const TaskList = ({ switchLevel }: TaskListProps) => {
   const navigate = useNavigate();
   const levels = getGameState().levels;
 
+  const isGameCompleted = levels.every((level) => level.done);
+
   return (
     <div className="TaskList-container">
       <h2>Lista Zadań</h2>
       <ul className="TaskList-list">
         {levels.map((level) => (
-          <li key={level.id} className="TaskList-item">
+          <li
+            key={level.id}
+            className="TaskList-item"
+            onClick={() => {
+              if (!level.done) switchLevel(level.id);
+            }}
+          >
             <label className="TaskList-checkboxLabel">
               <input
                 type="checkbox"
                 checked={level.done}
                 readOnly
-                disabled
-                className="TaskList-checkbox"
-              />
-              <span
-                className="TaskList-levelName"
                 onClick={() => {
                   if (!level.done) switchLevel(level.id);
                 }}
-              >
-                {level.name}
-              </span>
+                className="TaskList-checkbox"
+              />
+              <span className="TaskList-levelName">{level.name}</span>
             </label>
             <span className="TaskList-score">Punkty: {level.score}</span>
             <span className="TaskList-time">
@@ -45,6 +48,12 @@ const TaskList = ({ switchLevel }: TaskListProps) => {
       </ul>
       <div className="TaskList-footer">
         <DeclineButton label="Menu" onClick={() => navigate("/")} />
+        {isGameCompleted && (
+          <DeclineButton
+            label="Twoja Nagroda"
+            onClick={() => navigate("/winner")}
+          />
+        )}
       </div>
     </div>
   );

@@ -57,6 +57,7 @@
   position: relative;
   outline: none;
   cursor: pointer;
+  z-index: 0;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 

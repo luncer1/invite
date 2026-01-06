@@ -1,7 +1,7 @@
 .BeatingHeart-container {
   display: flex;
-  height: 7vw;
-  width: 7vw;
+  height: 3vw;
+  width: 3vw;
   align-items: center;
   justify-content: center;
   animation: 1.5s ease 0s infinite pulse;

@@ -8,7 +8,9 @@
   align-items: center;
   padding: var(--space-xxl);
   background-color: var(--color-primary);
+  min-height: 160px;
   width: 100%;
+  max-width: 100%;
   overflow: hidden;
 }
 
@@ -21,6 +23,11 @@
   text-align: center;
   user-select: none;
   z-index: 1;
+}
+.GameMenu-description ul li {
+  text-align: left;
+  padding: 0.3em;
+  color: var(--color-muted);
 }
 
 .GameTitle-Heart {

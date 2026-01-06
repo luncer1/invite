@@ -1,6 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./LoversPairs.css";
-import heartImg from "../../assets/Heart_pieces_img.JPEG";
+import lovePairs1 from "../../assets/IMG_20250322_133322.JPEG";
+import lovePairs2 from "../../assets/IMG_3354.JPEG";
+import lovePairs3 from "../../assets/IMG_4687.JPEG";
+import lovePairs4 from "../../assets/IMG_4951.JPEG";
+import lovePairs5 from "../../assets/IMG_5604.JPEG";
+import lovePairs6 from "../../assets/IMG_6195.JPEG";
+import lovePairs7 from "../../assets/IMG_6496.JPEG";
+import lovePairs8 from "../../assets/IMG_6527.JPEG";
+
 import DeclineButton from "../DeclineButton/DeclineButton";
 import { useGameState } from "../../contexts/GameStateContext";
 import { Levels } from "../../helpers/constants";
@@ -22,7 +30,16 @@ type LoversPairsProps = {
   onSolved?: () => void;
 };
 
-const DEFAULT_IMAGES = [heartImg, heartImg, heartImg];
+const DEFAULT_IMAGES = [
+  lovePairs1,
+  lovePairs2,
+  lovePairs3,
+  lovePairs4,
+  lovePairs5,
+  lovePairs6,
+  lovePairs7,
+  lovePairs8,
+];
 
 const shuffle = <T,>(array: T[]): T[] => {
   const a = array.slice();
@@ -180,6 +197,8 @@ const LoversPairs: React.FC<LoversPairsProps> = ({
   useEffect(() => {
     if (allMatched) {
       passLevel(Levels.LOVERS_PAIRS, calculatePoints(), time);
+      player.addScore(calculatePoints());
+      player.resetLives();
       if (onSolved) {
         onSolved();
       }

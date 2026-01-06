@@ -27,7 +27,35 @@ const GameMenu = () => {
       <p className="GameMenu-description">
         To juz drugie walentyki! Więc i giereczka troszkę lepsza, a tym razem
         zeby nie było tak łatwo to adres poznasz dopiero jak wykonasz wszystkie
-        zadania z listy!
+        zadania z listy! Krótko o gierce:
+        <ul>
+          <li>
+            Po kliknięciu Rozpocznij Nową Grę, zobaczysz listę zadań do
+            wykonania.
+          </li>
+          <li>
+            Możesz klikać w nie w dowolnej kolejności, po kliknięciu na zadanie
+            zostaniesz do niego przeniesiona i tam będzie dokładny opis co
+            robić.
+          </li>
+          <li>
+            W lewym górnym rogu zobaczysz serduszka symbolizujące Twoje życie. W
+            zależności od zadania tracisz je za upływający czas lub pomyłki.{" "}
+          </li>
+          <li>
+            Ale nic się nie przejmuj jak serduszka się skończą, nie tracisz
+            postępu tylko musisz zacząć dane zadanie od nowa.
+          </li>
+          <li>
+            Po kliknięciu w ustawienia możesz ustawić sobie poziom trudności.
+            Polecam trudny :)
+          </li>
+          <li>
+            Gdy wykonasz wszystkie zadania z listy, pojawi się specjalny
+            przycisk, który przekieruje Cię dalej,
+          </li>
+        </ul>
+        Powodzenia! :)
       </p>
       <ul className="GameMenu-optionList">
         <li className="GameMenu-option" onClick={handleNewGame}>
