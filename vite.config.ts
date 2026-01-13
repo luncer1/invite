@@ -5,4 +5,5 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.JPEG', '**/*.jpg', '**/*.png', '**/*.svg'],
+  base: "/invite"
 });

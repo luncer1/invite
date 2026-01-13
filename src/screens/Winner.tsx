@@ -11,7 +11,7 @@ const Winner = () => {
 
   const isAllCompleted = levels.every((level) => level.done);
   if (!isAllCompleted) {
-    navigate("/");
+    navigate("/invite");
     return null;
   }
 

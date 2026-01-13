@@ -19,12 +19,10 @@ const WORDS: CrosswordWord[] = [
     word: "NOSFERATU",
     clue: "Pierwszy (i jedyny XD) film na którym byliśmy w kinie",
   },
-  { word: "TORT", clue: "Edytowałem tam twój wiek" },
   { word: "BARCELONA", clue: "Byliśmy tam na pierwszym wyjeździe za granicę" },
   { word: "TUNEZJA", clue: "Pierwsze wspólne wakacje" },
   { word: "ALI", clue: "Poznaliśmy na wyjeździe" },
   { word: "USTROŃ", clue: "Byliśmy tam na sylwestrze" },
-  { word: "OLKA", clue: "Atencjuszka na studiach" },
   { word: "DREZYNA", clue: "Rower ale na torach" },
   {
     word: "ŚWIATEŁ",

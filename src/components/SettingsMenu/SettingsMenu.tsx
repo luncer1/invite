@@ -29,11 +29,11 @@ const SettingsMenu = () => {
     }
     setPlayerName(formData.playerName);
     setDifficulty(formData.difficulty);
-    navigation("/");
+    navigation("/invite");
   };
 
   const handleBack = () => {
-    navigation("/");
+    navigation("/invite");
   };
 
   const translateDifficulty = (difficulty: string) => {
@@ -124,7 +124,7 @@ const SettingsMenu = () => {
           setPlayerName(formData.playerName);
           resetGameState();
           setShowAlert(false);
-          navigation("/");
+          navigation("/invite");
         }}
         message="Zmiana poziomu trudności spowoduje reset obecnego postępu, czy chcesz kontynuować?"
       />

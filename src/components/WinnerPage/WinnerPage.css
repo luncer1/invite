@@ -119,6 +119,10 @@
   margin-top: 1rem;
 }
 
+.Winner-infoBox p {
+  color: var(--color-secondary);
+}
+
 .Winner-infoBox h4 {
   margin: 0 0 0.5rem 0;
   color: var(--color-primary);

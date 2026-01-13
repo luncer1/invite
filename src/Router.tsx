@@ -13,10 +13,10 @@ export default function AppRouter() {
       <BrowserRouter>
         <GameTitle />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/game" element={<Game />} />
-          <Route path="/winner" element={<Winner />} />
+          <Route path="/invite" element={<Home />} />
+          <Route path="/invite/settings" element={<Settings />} />
+          <Route path="/invite/game" element={<Game />} />
+          <Route path="/invite/winner" element={<Winner />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -25,10 +25,10 @@ const Game = () => {
                 image={picture}
                 pieces={
                   getDifficulty() == Difficulty.EASY
-                    ? 6
+                    ? 9
                     : getDifficulty() == Difficulty.MEDIUM
-                    ? 10
-                    : 16
+                    ? 16
+                    : 25
                 }
                 onSolved={() => setCurrentLevel(Levels.TASK_LIST)}
               />

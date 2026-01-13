@@ -4,6 +4,7 @@ import { usePlayer } from "../../contexts/PlayerContext";
 import { formatTime } from "../../helpers/time";
 import DeclineButton from "../DeclineButton/DeclineButton";
 import "./WinnerPage.css";
+import { Difficulty } from "../../helpers/constants";
 
 const WinnerPage = () => {
   const { getGameState, resetGameState } = useGameState();
@@ -15,12 +16,12 @@ const WinnerPage = () => {
   const totalScore = levels.reduce((acc, l) => acc + (l.score || 0), 0);
 
   const handleBackToMenu = () => {
-    navigate("/");
+    navigate("/invite");
   };
 
   const handlePlayAgain = () => {
     resetGameState();
-    navigate("/game");
+    navigate("/invite/game");
   };
 
   return (
@@ -65,11 +66,14 @@ const WinnerPage = () => {
         <div className="Winner-infoBox">
           <h4>Informacje</h4>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            posuere erat a ante. Sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
+            Brawo kochanie! Udało Ci się ukończyć wszystkie zadania, a więc
+            oficjalnie zapraszam Cię na walentynki 14.02.2026, do restauracji
+            "Szalone Widelce",{" "}
+            <a href="https://szalonewidelce.pl/">Tu możesz zobaczyć menu.</a>{" "}
+            Mamy rezerwacje na godzinę 19:00. Kocham Cię bardzo i nie mogę się
+            doczekać naszego wspólnego wieczoru! ❤️
+            {gameState.difficulty != Difficulty.HARD &&
+              " P.S. Spróbuj przejść na trudniejszych poziomach!"}
           </p>
         </div>
 

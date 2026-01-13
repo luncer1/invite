@@ -14,11 +14,11 @@ const GameMenu = () => {
       return;
     }
     resetGameState();
-    navigate("/game");
+    navigate("/invite/game");
   };
 
   const handleContinueGame = () => {
-    navigate("/game");
+    navigate("/invite/game");
   };
 
   return (
@@ -67,7 +67,10 @@ const GameMenu = () => {
           </li>
         )}
 
-        <li className="GameMenu-option" onClick={() => navigate("/settings")}>
+        <li
+          className="GameMenu-option"
+          onClick={() => navigate("/invite/settings")}
+        >
           Ustawienia
         </li>
       </ul>
@@ -75,7 +78,7 @@ const GameMenu = () => {
         show={showAlert}
         onConfirm={() => {
           resetGameState();
-          navigate("/game");
+          navigate("/invite/game");
           setShowAlert(false);
         }}
         onCancel={() => setShowAlert(false)}

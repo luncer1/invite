@@ -47,11 +47,11 @@ const TaskList = ({ switchLevel }: TaskListProps) => {
         ))}
       </ul>
       <div className="TaskList-footer">
-        <DeclineButton label="Menu" onClick={() => navigate("/")} />
+        <DeclineButton label="Menu" onClick={() => navigate("/invite")} />
         {isGameCompleted && (
           <DeclineButton
             label="Twoja Nagroda"
-            onClick={() => navigate("/winner")}
+            onClick={() => navigate("/invite/winner")}
           />
         )}
       </div>

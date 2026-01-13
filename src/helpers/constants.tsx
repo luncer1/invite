@@ -36,7 +36,8 @@ export const INITIAL_GAME_STATE = {
     {
       id: Levels.LOVERS_PAIRS,
       name: "Pary zakochanych",
-      description: "Description of level 4",
+      description:
+        "Dopasuj pary kart z naszymi wspólnymi zdjęciami. Każde poprawne dopasowanie przybliża Cię do nagrody. Spiesz się, co każde 30 sekund tracisz jedno życie. Powodzenia, kochanie!",
       image: "image4.png",
       score: 0,
       done: false,
